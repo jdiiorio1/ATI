@@ -1,0 +1,7 @@
+- name: prueba de modulo ping
+  hosts: localhost
+
+  tasks:
+    - name: realizo ping
+      ping:
+       
