@@ -5,3 +5,9 @@
     - name: realizo ping
       ping:
        
+- name: prueba ping a windows
+  hosts: windows
+
+  tasks:
+    - name: realizo ping a windows
+      win_ping:
