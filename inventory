@@ -7,5 +7,7 @@ labwin10   ansible_host=192.168.1.41
 [windows:vars]
 ansible_port=5985
 ansible_connection=winrm
-#ansible_winrm_transport=ntlm
+ansible_winrm_transport=ntlm
 ansible_winrm_server_cert_validation=ignore
+ansible_user=jorge
+ansible_password=ansibletest
