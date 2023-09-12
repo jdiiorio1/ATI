@@ -1,5 +1,5 @@
 [linux]
-localhost
+localhost   ansible_host=127.0.0.1
 
 [windows]
 labwin10   ansible_host=192.168.1.42
