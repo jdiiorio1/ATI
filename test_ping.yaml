@@ -1,5 +1,5 @@
 - name: prueba de modulo ping
-  hosts: localhost
+  hosts: linux
 
   tasks:
     - name: realizo ping
