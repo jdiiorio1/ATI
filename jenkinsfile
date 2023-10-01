@@ -1,6 +1,6 @@
 -- prueba de jenkins file
 pipeline {
-    agent { label 'any' }
+    agent { label 'master' }
     stages {
         stage('build') {
             steps {
