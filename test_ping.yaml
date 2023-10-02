@@ -2,7 +2,7 @@
 
 ## play para los quipos linux
 - name: prueba de modulo ping
-  hosts: linux # indico el host o grupo de host para los que se realiza la tarea
+  hosts: linux # indico el host o grupo de host para los que se realiza la tarea#
 
   tasks:
     - name: realizo ping

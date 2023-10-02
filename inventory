@@ -1,13 +1,19 @@
 [linux]
 localhost   ansible_connection=local
+ubuntuWM    ansible_host=192.168.1.43 #ansible_ssh_private_key_file=/home/jorge/.ssh/known_hosts
+
 
 [windows]
-labwin10   ansible_host=192.168.1.41
+labwin10   ansible_host=192.168.1.45
 
 [windows:vars]
 ansible_port=5985
 ansible_connection=winrm
 ansible_winrm_transport=ntlm
 ansible_winrm_server_cert_validation=ignore
+ansible_user=jorge
+ansible_password=ansibletest
+
+[linux:vars]
 ansible_user=jorge
 ansible_password=ansibletest
