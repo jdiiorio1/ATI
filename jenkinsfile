@@ -5,6 +5,7 @@ pipeline {
         stage('build') {
             steps {
                 echo "Hello World!"
+                sh 'ansible-playbook -i inventory test_ping.yaml'
             }
         }
     }
