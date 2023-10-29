@@ -5,7 +5,7 @@ pipeline {
         stage('build') {
             steps {
 
-                withCredentials([string(credentialsId: 'usuario_virtuales', userVariable: 'usuario', passwordVariable: 'password')]) {
+                withCredentials([usernameColonPassword(credentialsId: 'usuario_virtuales', userVariable: 'usuario', passwordVariable: 'password')]) {
                     sh "echo ${user}"
                     sh 'ansible-playbook -i inventory test_ping.yaml ' +
                     ' -e user=' + userVariable +
