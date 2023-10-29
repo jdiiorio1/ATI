@@ -6,7 +6,8 @@ pipeline {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', userVariable: 'usuario', passwordVariable: 'password')]) {
-                sh 'ansible-playbook -i inventory test_ping.yaml ' +
+                    sh "echo ${user}"
+                    sh 'ansible-playbook -i inventory test_ping.yaml ' +
                     ' -e user=' + userVariable +
                     ' -e pass=${passwordVariable} -v'
                     
