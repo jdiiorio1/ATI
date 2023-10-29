@@ -5,7 +5,9 @@
 ## play para los quipos linux
 - name: Instalacion en ambientes Linux
   hosts: linux # indico el host o grupo de host para los que se realiza la tarea#
+  become: true
 
+  
   tasks:
     - name: realizo ping
       ping:
@@ -19,7 +21,7 @@
       apt:
         name: mysql-server
         state: present
-    #  become: true
+      
        
 ## Play para los equipos windows       
 - name: Instalacion en equipos Windows
