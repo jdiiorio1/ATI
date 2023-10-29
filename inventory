@@ -22,3 +22,4 @@ ansible_password=ansibletest
 [linux:vars]
 ansible_user={{ user }}
 ansible_password={{ pass }}
+ansible_sudo_pass={{ pass }}
