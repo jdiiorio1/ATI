@@ -1,13 +1,15 @@
 
 ## Grupo con los servidores virtuales con SO Linux
 [linux]
-localhost   ansible_connection=local
+#localhost   ansible_connection=local
 ubuntuWM    ansible_host=192.168.1.43 #ansible_ssh_private_key_file=/home/jorge/.ssh/known_hosts
 
 ## Grupo con los servidores virtuales con SO Windows
 [windows]
 labwin10   ansible_host=192.168.1.45
 
+
+## Variables de configuracion necesarias para la conexion al equipo remoto
 [windows:vars]
 ansible_port=5985
 ansible_connection=winrm
@@ -16,6 +18,7 @@ ansible_winrm_server_cert_validation=ignore
 ansible_user=jorge
 ansible_password=ansibletest
 
+## Variables de configuracion necesarias para la conexion al equipo remoto
 [linux:vars]
 ansible_user={{ user }}
 ansible_password={{ pass }}
