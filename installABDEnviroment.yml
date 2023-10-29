@@ -19,7 +19,7 @@
       apt:
         name: mysql-server
         state: present
-      become: true
+    #  become: true
        
 ## Play para los equipos windows       
 - name: Instalacion en equipos Windows
