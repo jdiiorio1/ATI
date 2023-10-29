@@ -4,8 +4,15 @@ pipeline {
     stages {
         stage('build') {
             steps {
+
+                withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', userVariable: 'usuario', passwordVariable: 'password')]) {
+                sh 'ansible-playbook -i inventory test_ping.yaml ' +
+                    ' -e user=' + userVariable +
+                    ' -e pass=${passwordVariable} -v'
+                    
+                }
+
                 echo "Hello World!"
-                sh 'ansible-playbook -i inventory test_ping.yaml'
             }
         }
     }
