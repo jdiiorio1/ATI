@@ -17,7 +17,7 @@
 
     - name: instalar mysql desde el repositorio apt
       apt:
-        name: mysql
+        name: mysql-server
         state: present
        
 ## Play para los equipos windows       
