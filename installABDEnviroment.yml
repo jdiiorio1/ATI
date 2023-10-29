@@ -1,0 +1,29 @@
+##### Playbook para instalacion y configuracion del ambiente de trabajo para        ########
+##### la catedra Administracion de base de datos                                    ########
+##### Proyecto desarrollado para la catedra Actualizacion Tecnologica e Innovacion  ########
+
+## play para los quipos linux
+- name: Instalacion en ambientes Linux
+  hosts: linux # indico el host o grupo de host para los que se realiza la tarea#
+
+  tasks:
+    - name: realizo ping
+      ping:
+
+    - name: me aseguro que exista el directorio de instalacion
+      file:
+        path: /tmp/instalacion/ejecutables
+        state: directory
+       
+## Play para los equipos windows       
+- name: Instalacion en equipos Windows
+  hosts: windows
+
+  tasks:
+    - name: realizo ping a windows
+      win_ping:
+
+    - name: Creo el directorio de instalacion si no existe
+      win_file:
+        path: C:\Temp\instalacion\ejecutables
+        state: directory

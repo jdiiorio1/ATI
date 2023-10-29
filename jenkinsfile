@@ -7,13 +7,12 @@ pipeline {
 
                 withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', usernameVariable: 'usuario', passwordVariable: 'password')]) {
                     sh "echo ${user}"
-                    sh 'ansible-playbook -i inventory test_ping.yaml ' +
+                    sh 'ansible-playbook -i inventory installABDEnviroment.yml ' +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
                 }
 
-                echo "Hello World!"
             }
         }
     }
