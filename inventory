@@ -17,5 +17,5 @@ ansible_user=jorge
 ansible_password=ansibletest
 
 [linux:vars]
-ansible_user=jorge
-ansible_password=ansibletest
+ansible_user={{ user }}
+ansible_password={{ pass }}
