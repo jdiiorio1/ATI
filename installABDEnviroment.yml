@@ -35,3 +35,8 @@
       win_file:
         path: C:\Temp\instalacion\ejecutables
         state: directory
+
+    - name: Copio instalador en la ruta de ejecutables
+      ansible.windows.win_copy:
+        src: /home/jorge/Documentos/Imágenes/mysql-installer-community-8.0.36.0.msi
+        dest: C:\Temp\instalacion\ejecutables
