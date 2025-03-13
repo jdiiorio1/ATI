@@ -1,13 +1,27 @@
 // prueba de jenkins file
 pipeline {
     agent any
+
+    parameters {
+        choice(
+            name: 'SO',
+            choices: ['Linux', 'Windows', 'TODOS'],
+            description: 'Seleccione el sistema operativo a configurar'
+        )
+
+    }
+
+    
     stages {
         stage('build') {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', usernameVariable: 'usuario', passwordVariable: 'password')]) {
-                    sh "echo ${user}"
+                    echo "el usuario con creednciales es: ${usuario}"
+                    echo "el sistema operativo a configurar es: ${params.SO}"
+                    
                     sh 'ansible-playbook -i inventory installABDEnviroment.yml ' +
+                    ' -e so=' + ${params.SO} +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
