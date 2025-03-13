@@ -4,7 +4,7 @@ pipeline {
 
     parameters {
         choice(
-            name: 'SO',
+            name: 'sistema_operativo',
             choices: ['Linux', 'Windows', 'TODOS'],
             description: 'Seleccione el sistema operativo a configurar'
         )
@@ -18,10 +18,10 @@ pipeline {
 
                 withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', usernameVariable: 'usuario', passwordVariable: 'password')]) {
                     echo "el usuario con creednciales es: ${usuario}"
-                    echo "el sistema operativo a configurar es: ${params.SO}"
+                    echo "el sistema operativo a configurar es: ${sistema_operativo}"
                     
                     sh 'ansible-playbook -i inventory installABDEnviroment.yml ' +
-                    ' -e so=' + ${params.SO} +
+                    ' -e so=' + sistema_operativo +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
