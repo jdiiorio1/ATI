@@ -29,21 +29,23 @@ pipeline {
 
         stage('Resolviendo parametros') {
             steps {
-                
-            echo "el sistema operativo a configurar es: ${params.SO}"
-            echo "La herramienta a instalar es: ${params.INSTALACION}"
+                script {
+                    echo "el sistema operativo a configurar es: ${params.SO}"
+                    echo "La herramienta a instalar es: ${params.INSTALACION}"
 
-            if (params.SO.equals("Equipos Linux")) {
-                so = "linux"
-            } else if (params.SO.equals("Equipos Windows")){
-                so = "windows"
-            } else {
-                so = "all"
-            }
+                    if (params.SO.equals("Equipos Linux")) {
+                        so = "linux"
+                    } else if (params.SO.equals("Equipos Windows")){
+                        so = "windows"
+                    } else {
+                        so = "all"
+                    }
 
-            echo "Sistema operativo resuelto: ${so}"
+                    echo "Sistema operativo resuelto: ${so}"
+                }
+
             }
-            
+ 
 
         } 
 
