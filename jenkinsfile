@@ -28,6 +28,8 @@ pipeline {
     stages {
 
         stage('Resolviendo parametros') {
+            steps {
+                
             echo "el sistema operativo a configurar es: ${params.SO}"
             echo "La herramienta a instalar es: ${params.INSTALACION}"
 
@@ -40,6 +42,7 @@ pipeline {
             }
 
             echo "Sistema operativo resuelto: ${so}"
+            }
             
 
         } 
