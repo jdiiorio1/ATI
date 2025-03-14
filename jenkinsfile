@@ -35,7 +35,7 @@ pipeline {
 
                     if (params.SO.equals("Equipos Linux")) {
                         so = "linux"
-                    } else if (params.INSTALACION.equals("Equipos Windows")){
+                    } else if (params.SO.equals("Equipos Windows")){
                         so = "windows"
                     } else {
                         so = "all"
