@@ -20,7 +20,7 @@ pipeline {
     environment {
 
         so = ""
-        herramienta = ""
+        
 
     }
 
@@ -57,7 +57,7 @@ pipeline {
                     echo "el sistema operativo a configurar es: ${so}"
                     
                     sh 'ansible-playbook -i inventory -l ' + so + ' installABDEnviroment.yml ' +
-                    ' -e herramienta=' + herramienta +
+                    ' -e herramienta=' + params.INSTALACION +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
