@@ -5,23 +5,54 @@ pipeline {
     parameters {
         choice(
             name: 'SO',
-            choices: ['Linux', 'Windows', 'TODOS'],
-            description: 'Seleccione el sistema operativo a configurar'
+            choices: ['Equipos Linux', 'Equipos Windows', 'TODOS'],
+            description: 'Seleccione el conjunto de equipos donde se debe configurar el ambiente de DBA'
         )
+
+        choice(
+            name: 'INSTALACION',
+            choices: ['MySQL', 'MongoDB', 'COMPLETO'],
+            description: 'Seleccione las herramientas a instalar'
+        )
+
+    }
+
+    enviroment {
+
+        so = ""
+        herramienta = ""
 
     }
 
     
     stages {
+
+        stage('Resolviendo parametros') {
+            echo "el sistema operativo a configurar es: ${params.SO}"
+            echo "La herramienta a instalar es: ${params.INSTALACION}"
+
+            if (params.SO.equals("Equipos Linux")) {
+                so = "linux"
+            } else if (params.SO.equals("Equipos Windows")){
+                so = "windows"
+            } else {
+                so = "all"
+            }
+
+            echo "Sistema operativo resuelto: ${so}"
+            
+
+        } 
+
         stage('build') {
             steps {
 
                 withCredentials([usernamePassword(credentialsId: 'usuario_virtuales', usernameVariable: 'usuario', passwordVariable: 'password')]) {
                     echo "el usuario con creednciales es: ${usuario}"
-                    echo "el sistema operativo a configurar es: ${params.SO}"
+                    echo "el sistema operativo a configurar es: ${so}"
                     
                     sh 'ansible-playbook -i inventory installABDEnviroment.yml ' +
-                    ' -e so=' + params.SO +
+                    ' -e so=' + so +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
