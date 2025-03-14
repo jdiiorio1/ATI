@@ -35,7 +35,7 @@ pipeline {
 
                     if (params.SO.equals("Equipos Linux")) {
                         so = "linux"
-                    } else if (params.SO.equals("Equipos Windows")){
+                    } else if (params.INSTALACION.equals("Equipos Windows")){
                         so = "windows"
                     } else {
                         so = "all"
@@ -56,8 +56,8 @@ pipeline {
                     echo "el usuario con creednciales es: ${usuario}"
                     echo "el sistema operativo a configurar es: ${so}"
                     
-                    sh 'ansible-playbook -i inventory installABDEnviroment.yml ' +
-                    ' -e so=' + so +
+                    sh 'ansible-playbook -i inventory -l ' + so + ' installABDEnviroment.yml ' +
+                    ' -e herramienta=' + herramienta +
                     ' -e user=' + usuario +
                     ' -e pass=${password} -v'
                     
