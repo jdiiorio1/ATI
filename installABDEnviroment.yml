@@ -30,6 +30,13 @@
         state: present
       when: herramienta == "MySQL" or herramienta == "COMPLETO"
 
+
+    - name: Valido que el servicio de mysql se encuentre levantado
+      service:
+        name: mysql
+        state: started
+      when: herramienta == "MySQL" or herramienta == "COMPLETO"
+
     ## Este modulo realiza la isntalacion de MongoDB si es que no se encuentra instalado previamente
     - name: valido la instalacion de MongoDB desde el repositorio apt
       apt:
