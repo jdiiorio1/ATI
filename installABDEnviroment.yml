@@ -1,3 +1,5 @@
+
+---
 ##### Playbook para instalacion y configuracion del ambiente de trabajo para        ########
 ##### la materia Administracion de base de datos                                    ########
 ##### Proyecto desarrollado para la catedra Actualizacion Tecnologica e Innovacion  ########
@@ -7,8 +9,9 @@
   hosts: linux # indico el host o grupo de host para los que se realiza la tarea#
   become: true
 
-  
+  ## Aqui se realizan las tareas de instalacion de las herramientas seleccionadas en el formulario
   tasks:
+
     - name: realizo ping
       ping:
 
@@ -17,10 +20,24 @@
         path: /tmp/instalacion/ejecutables
         state: directory
 
-    - name: instalar mysql desde el repositorio apt
+    ## Este modulo realiza la instalacion de mysql si es que no esta instalado previamente
+    ## Si mysql ya se encuentra instalado, no hace nada
+    ## esto se debe a la clausula "State=present" 
+    
+    - name: valido la instalacion de mysql desde el repositorio apt
       apt:
         name: mysql-server
         state: present
+      when: herramientas == "MySQL" or herramientas == "COMPLETO"
+
+    ## Este modulo realiza la isntalacion de MongoDB si es que no se encuentra instalado previamente
+    - name: valido la instalacion de MongoDB desde el repositorio apt
+      apt:
+        name: mongodb-org
+        state: present
+      when: herramientas == "MongoDB" or herramientas == "COMPLETO"
+
+
       
        
 ## Play para los equipos windows       
