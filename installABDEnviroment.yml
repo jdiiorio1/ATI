@@ -28,14 +28,14 @@
       apt:
         name: mysql-server
         state: present
-      when: herramientas == "MySQL" or herramientas == "COMPLETO"
+      when: herramienta == "MySQL" or herramienta == "COMPLETO"
 
     ## Este modulo realiza la isntalacion de MongoDB si es que no se encuentra instalado previamente
     - name: valido la instalacion de MongoDB desde el repositorio apt
       apt:
         name: mongodb-org
         state: present
-      when: herramientas == "MongoDB" or herramientas == "COMPLETO"
+      when: herramienta == "MongoDB" or herramienta == "COMPLETO"
 
 
       
