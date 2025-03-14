@@ -17,7 +17,7 @@ pipeline {
 
     }
 
-    enviroment {
+    environment {
 
         so = ""
         herramienta = ""
