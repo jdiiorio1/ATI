@@ -107,6 +107,10 @@
             state: present
           when: herramienta == "MongoDB" or herramienta == "COMPLETO"
 
+        - name: Valido que el servicio de MongoDB se encuentre levantado
+          win_service:
+            name: MySQL80
+            state: started
 
       when: output_servicio.state == "running"
 
