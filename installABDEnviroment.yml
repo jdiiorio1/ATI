@@ -55,12 +55,27 @@
     - name: realizo ping a windows
       win_ping:
 
-    - name: Creo el directorio de instalacion si no existe
-      win_file:
-        path: C:\Temp\instalacion\ejecutables
-        state: directory
+    - name: Valido que el servicio de mysql se encuentre levantado
+      win_service:
+        name: MySQL80
+        state: started
+      register: output_servicio
 
-    - name: Copio instalador en la ruta de ejecutables
-      ansible.windows.win_copy:
-        src: /home/jorge/Documentos/mysql-installer-community-8.0.36.0.msi
-        dest: C:\Temp\instalacion\ejecutables\
+
+    - name: Bloque de configuracion de ambiente
+      block:
+
+
+        - name: Creo el directorio de instalacion si no existe
+          win_file:
+            path: C:\Temp\instalacion\ejecutables
+            state: directory
+    
+        - name: Copio instalador en la ruta de ejecutables
+          ansible.windows.win_copy:
+            src: /home/jorge/Documentos/mysql-installer-community-8.0.36.0.msi
+            dest: C:\Temp\instalacion\ejecutables\
+
+
+      when: output_servicio.state != "running" and  herramienta == "MySQL" or herramienta == "COMPLETO"
+
