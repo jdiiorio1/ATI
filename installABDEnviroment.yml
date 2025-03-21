@@ -15,10 +15,6 @@
     - name: realizo ping
       ping:
 
-    - name: me aseguro que exista el directorio de instalacion
-      file:
-        path: /tmp/instalacion/ejecutables
-        state: directory
 
     ## Este modulo realiza la instalacion de mysql si es que no esta instalado previamente
     ## Si mysql ya se encuentra instalado, no hace nada
@@ -28,7 +24,12 @@
       apt:
         name: mysql-server
         state: present
+      register: salida_mysql
       when: herramienta == "MySQL" or herramienta == "COMPLETO"
+
+    - name: muestro el resultado de la ejecucion del comando anterior
+      debug:
+        msg: "{{ salida_mysql.changed }}"
 
 
     - name: Valido que el servicio de mysql se encuentre levantado
@@ -42,7 +43,12 @@
       apt:
         name: mongodb-org
         state: present
+      register: salida_mongodb
       when: herramienta == "MongoDB" or herramienta == "COMPLETO"
+
+    - name: muestro el resultado de la ejecucion del comando anterior
+      debug:
+        msg: "{{ salida_mongodb.changed }}"
 
 
       
@@ -107,10 +113,7 @@
             state: present
           when: herramienta == "MongoDB" or herramienta == "COMPLETO"
 
-        - name: Valido que el servicio de MongoDB se encuentre levantado
-          win_service:
-            name: MySQL80
-            state: started
 
+      ## Fin de boque
       when: output_servicio.state == "running"
 
