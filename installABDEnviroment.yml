@@ -38,7 +38,9 @@
         state: started
       when: herramienta == "MySQL" or herramienta == "COMPLETO"
 
+    ##
     ## Este modulo realiza la isntalacion de MongoDB si es que no se encuentra instalado previamente
+    ##
     - name: valido la instalacion de MongoDB desde el repositorio apt
       apt:
         name: mongodb-org
@@ -61,18 +63,8 @@
     - name: realizo ping a windows
       win_ping:
 
-    - name: Valido que el servicio de mysql se encuentre levantado
-      win_service:
-        name: MySQL80
-        state: started
-      register: output_servicio
 
-    - name: muestro el resultado de la ejecucion del comando anterior
-      debug:
-        msg: "{{ output_servicio.state }}"
-
-
-    - name: Bloque de configuracion de ambiente
+    - name: Bloque de configuracion de ambiente Mysql
       block:
 
 
@@ -85,35 +77,64 @@
           ansible.windows.win_copy:
             src: /home/jorge/Documentos/mysql-installer-community-8.0.36.0.msi
             dest: C:\Temp\instalacion\ejecutables\
-          when: herramienta == "MySQL" or herramienta == "COMPLETO"
+          
 
         - name: Valido que se instale el paquete de Mysql
           win_package:
             path: C:\Temp\instalacion\ejecutables\mysql-installer-community-8.0.36.0.msi
             arguments: '/quiet /norestart'  # Opciones para ejecucion desatendida
             state: present
-          when: herramienta == "MySQL" or herramienta == "COMPLETO"
+          
 
         - name: Valido que el servicio de mysql se encuentre levantado
           win_service:
             name: MySQL80
             state: started
+          register: output_mysql
+      
+        - name: muestro el resultado de la ejecucion del comando anterior
+          debug:
+            msg: "{{ output_mysql.state }}"
+
+        - name: muestro mensaje OK
+          set_fact:
+            mensaje: "MySQL se instalo correctamente"
+          when: output_mysql.state == "running"
+
+        - name: muestro mensaje ERROR
+          set_fact:
+            mensaje: "MySQL no pudo instalarse"
+          when: output_mysql.state != "running"
+
+          
+      ## Fin de boque
+      when: herramienta == "MySQL" or herramienta == "COMPLETO"
+
+
+
+    - name: Bloque de configuracion de ambiente MongoDB
+      block:
+
+
+        - name: Creo el directorio de instalacion si no existe
+          win_file:
+            path: C:\Temp\instalacion\ejecutables
+            state: directory
+
           
 
         - name: Copio instalador de MOngoDB en la ruta de ejecutables
           ansible.windows.win_copy:
             src: /home/jorge/Documentos/mongodb-windows-x86_64-8.0.6-signed.msi
             dest: C:\Temp\instalacion\ejecutables\
-          when: herramienta == "MongoDB" or herramienta == "COMPLETO"
+
 
         - name: Valido que se instale el paquete de MongoDB
           win_package:
             path: C:\Temp\instalacion\ejecutables\mongodb-windows-x86_64-8.0.6-signed.msi
             arguments: '/quiet /norestart'  # Opciones para ejecucion desatendida
             state: present
-          when: herramienta == "MongoDB" or herramienta == "COMPLETO"
-
 
       ## Fin de boque
-      when: output_servicio.state == "running"
+      when: herramienta == "MongoDB" or herramienta == "COMPLETO"
 
