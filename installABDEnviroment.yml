@@ -108,5 +108,5 @@
           when: herramienta == "MongoDB" or herramienta == "COMPLETO"
 
 
-      when: output_servicio.state != "running"
+      when: output_servicio.state == "running"
 
