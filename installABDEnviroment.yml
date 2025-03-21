@@ -61,6 +61,10 @@
         state: started
       register: output_servicio
 
+    - name: muestro el resultado de la ejecucion del comando anterior
+      debug:
+        msg: "{{ output_servicio.state }}"
+
 
     - name: Bloque de configuracion de ambiente
       block:
@@ -77,5 +81,5 @@
             dest: C:\Temp\instalacion\ejecutables\
 
 
-      when: output_servicio.state != "running" and  herramienta == "MySQL" or herramienta == "COMPLETO"
+      when: output_servicio.state != "running"
 
