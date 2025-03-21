@@ -92,7 +92,7 @@
           win_service:
             name: MySQL80
             state: started
-          register: output_servicio
+          
 
         - name: Copio instalador de MOngoDB en la ruta de ejecutables
           ansible.windows.win_copy:
